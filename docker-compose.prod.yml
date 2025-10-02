@@ -1,6 +1,8 @@
 services:
   simstudio:
-    image: ghcr.io/simstudioai/simstudio:latest
+    build:
+      context: .
+      dockerfile: docker/app.Dockerfile
     restart: unless-stopped
     expose:
       - 3000
@@ -43,7 +45,9 @@ services:
       - "traefik.http.services.simstudio.loadbalancer.server.port=3000"
 
   realtime:
-    image: ghcr.io/simstudioai/realtime:latest
+    build:
+      context: .
+      dockerfile: docker/realtime.Dockerfile
     restart: unless-stopped
     expose:
       - 3002
@@ -75,7 +79,9 @@ services:
       - "traefik.http.services.simstudiort.loadbalancer.server.port=3002"
 
   migrations:
-    image: ghcr.io/simstudioai/migrations:latest
+    build:
+      context: .
+      dockerfile: docker/db.Dockerfile
     working_dir: /app/packages/db
     environment:
       - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@db:5432/${POSTGRES_DB:-simstudio}
