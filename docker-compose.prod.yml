@@ -2,8 +2,8 @@ services:
   simstudio:
     image: ghcr.io/simstudioai/simstudio:latest
     restart: unless-stopped
-    ports:
-      - '3000:3000'
+    expose:
+      - 3000
     deploy:
       resources:
         limits:
@@ -45,8 +45,8 @@ services:
   realtime:
     image: ghcr.io/simstudioai/realtime:latest
     restart: unless-stopped
-    ports:
-      - '3002:3002'
+    expose:
+      - 3002
     deploy:
       resources:
         limits:
@@ -69,10 +69,10 @@ services:
       - dokploy-network
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.<unique-name>.rule=Host(`your-domain.com`)"
-      - "traefik.http.routers.<unique-name>.entrypoints=websecure"
-      - "traefik.http.routers.<unique-name>.tls.certResolver=letsencrypt"
-      - "traefik.http.services.<unique-name>.loadbalancer.server.port=3000"
+      - "traefik.http.routers.simstudio.rule=Host(`ai-sim-pm5r39-aefd80-88-99-57-108.traefik.me`)"
+      - "traefik.http.routers.simstudio.entrypoints=websecure"
+      - "traefik.http.routers.simstudio.tls.certResolver=letsencrypt"
+      - "traefik.http.services.simstudio.loadbalancer.server.port=3000"
 
   migrations:
     image: ghcr.io/simstudioai/migrations:latest
@@ -84,6 +84,8 @@ services:
         condition: service_healthy
     command: ['bun', 'run', 'db:migrate']
     restart: 'no'
+    networks:
+      - dokploy-network
 
   db:
     image: pgvector/pgvector:pg17
@@ -101,6 +103,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - dokploy-network
 
 volumes:
   postgres_data:
