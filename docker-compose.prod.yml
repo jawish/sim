@@ -37,10 +37,10 @@ services:
       - dokploy-network
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.<unique-name>.rule=Host(`your-domain.com`)"
-      - "traefik.http.routers.<unique-name>.entrypoints=websecure"
-      - "traefik.http.routers.<unique-name>.tls.certResolver=letsencrypt"
-      - "traefik.http.services.<unique-name>.loadbalancer.server.port=3000"
+      - "traefik.http.routers.simstudio.rule=Host(`sim.toolsets.io`)"
+      - "traefik.http.routers.simstudio.entrypoints=websecure"
+      - "traefik.http.routers.simstudio.tls.certResolver=letsencrypt"
+      - "traefik.http.services.simstudio.loadbalancer.server.port=3000"
 
   realtime:
     image: ghcr.io/simstudioai/realtime:latest
@@ -69,10 +69,10 @@ services:
       - dokploy-network
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.simstudio.rule=Host(`ai-sim-pm5r39-aefd80-88-99-57-108.traefik.me`)"
+      - "traefik.http.routers.simstudio.rule=Host(`sim.toolsets.io`)"
       - "traefik.http.routers.simstudio.entrypoints=websecure"
       - "traefik.http.routers.simstudio.tls.certResolver=letsencrypt"
-      - "traefik.http.services.simstudio.loadbalancer.server.port=3000"
+      - "traefik.http.services.simstudio.loadbalancer.server.port=3002"
 
   migrations:
     image: ghcr.io/simstudioai/migrations:latest
