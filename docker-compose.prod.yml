@@ -69,10 +69,10 @@ services:
       - dokploy-network
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.simstudio.rule=Host(`sim.toolsets.io`)"
-      - "traefik.http.routers.simstudio.entrypoints=websecure"
-      - "traefik.http.routers.simstudio.tls.certResolver=letsencrypt"
-      - "traefik.http.services.simstudio.loadbalancer.server.port=3002"
+      - "traefik.http.routers.simstudiort.rule=Host(`simrt.toolsets.io`)"
+      - "traefik.http.routers.simstudiort.entrypoints=websecure"
+      - "traefik.http.routers.simstudiort.tls.certResolver=letsencrypt"
+      - "traefik.http.services.simstudiort.loadbalancer.server.port=3002"
 
   migrations:
     image: ghcr.io/simstudioai/migrations:latest
